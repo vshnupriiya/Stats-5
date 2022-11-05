@@ -1,0 +1,55 @@
+######################1#####################
+#To get 10 samples randomly from 60 data. WR and WOR
+
+ mark = c(47,26,145,19,7,30,27,23,12,13,48,35,28,26,26,36,23,26,29,30,45,37,39,28,29,37,17,30,36,32,28,32,29,23,28,21,13,14,22,14,37,38,22,27,32,24,20,13,14,15,47,26,45,19,7,30,27,23,12,13)
+ N = length(mark);N
+ n = 10
+ 
+mark_wr= sample(mark,10,replace= TRUE);mark_wr
+mark_wor = sample(mark,10,replace= FALSE);mark_wor
+
+avg_wr= mean(mark_wr);avg_wr
+avg_wor = mean(mark_wor);avg_wor
+
+
+#standard error = sq*var; var= s_sq/n #for wr
+#standard error = sq*var; var= (N-n/Nn)*s_sq
+
+s_sq_wr = var(mark_wr);s_sq_wr
+var_wr = s_sq_wr/n;var_wr
+
+st_err_wr = sqrt(var_wr);st_err_wr
+
+
+s_sq_wor =var(mark_wor);s_sq_wor
+var_wor = ((N-n)/(N*n))*s_sq_wor;var_wor
+st_err_wor = sqrt(var_wor);st_err_wor
+
+
+#98% CI for the same
+#mean+c(-1,1)*critical value
+
+avg_wr+c(1,-1)*qt(0.02/2,(n-1)*st_err_wr)
+avg_wor+c(1,-1)*qt(0.02/2,(n-1)*st_err_wor)
+
+
+
+####################2########################
+family = c(6,5,6,4,7,4,5,3,4,4,4,2,2,5,5,8,2,4,5,3,2,5,2,3,2,6,3,2,2,2,4,2,3,1,4,3,3,4,5,3)
+N= length(family);N
+nsys=8
+#define k, get a randomnumber from1 to k to start with by sample fn.
+#generate a sequnece from tht initial number
+#get a number fromfamily, where the sequnce is already defined
+
+k =N/nsys;k
+rand_num = sample(1:k,1); rand_num
+rand_seq = seq(rand_num,N,by=k);rand_seq
+sample = family[rand_seq]
+sample
+
+mean_size = mean(sample);mean_size
+totalfam_size = N*mean_size; totalfam_size
+
+#to caluclate standard error in sys-sampl
+
